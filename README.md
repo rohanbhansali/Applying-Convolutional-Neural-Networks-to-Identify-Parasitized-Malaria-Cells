@@ -1,1 +1,2 @@
-# Applying-Convolutional-Neural-Networks-to-Identify-Parasitized-Malaria-Cells
+# Applying Convolutional Neural Networks to Identify Parasitized Malaria Cells
+We develop an algorithm that can detect malaria from images of segmented cells from the thin blood smear slide images with 96% accuracy. Our algorithm, SimpNet-7, is a 7-layer convolutional neural network trained on the NIH Malaria dataset, containing 27,588 images of parasitized and uninfected cells. We find that SimpNet-7 achieves an F1 score of 0.955, a precision of 0.946, and a recall of 0.974. We then propose the application of this algorithm in hospitals in areas where malaria is prominent but medical resources are sparse, such as African countries.
