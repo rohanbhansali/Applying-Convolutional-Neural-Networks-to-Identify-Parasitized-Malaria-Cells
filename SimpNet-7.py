@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Apr  7 14:09:31 2020
-
-@author: rohan
-"""
-
 # Importing the Keras libraries and packages
 from keras.models import Sequential
 from keras.layers import Convolution2D
@@ -61,6 +53,7 @@ from keras.layers import Dense, Dropout
 from keras.wrappers.scikit_learn import KerasClassifier
 import keras.backend as K
 
+#f1, recall, and precision metrics
 def get_f1(y_true, y_pred): #taken from old keras source code
     true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
     possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
@@ -113,29 +106,8 @@ train_datagen = ImageDataGenerator(rescale = 1./255, shear_range = 0.2, zoom_ran
 
 test_datagen = ImageDataGenerator(rescale = 1./255)
 
-training_set = train_datagen.flow_from_directory('/Users/rohan/Documents/Projects/Malaria/cell_images_split/Train', target_size = (100, 100), batch_size = 10, class_mode = 'binary')
+training_set = train_datagen.flow_from_directory('TRAIN_PATH', target_size = (100, 100), batch_size = batch_size, class_mode = 'binary')
 
-test_set = test_datagen.flow_from_directory('/Users/rohan/Documents/Projects/Malaria/cell_images_split/Test', target_size = (100, 100), batch_size = 10, class_mode = 'binary')
+test_set = test_datagen.flow_from_directory('TEST_PATH', target_size = (100, 100), batch_size = batch_size, class_mode = 'binary')
 
-classifier.fit_generator(training_set, samples_per_epoch = 22040, nb_epoch = 1, validation_data = test_set, nb_val_samples = 5510)
-
-#test_gen = ImageDataGenerator()
-#test_generator = test_gen.flow_from_directory('/Users/rohan/Desktop/cell_images_split/Test', target_size=(100,100), class_mode=None,batch_size=10, shuffle='false')
-#data_labels = ['Parasitized', 'Uninfected']
-#Y_pred = classifier.predict_generator(test_generator, 5510 // 10)
-#y_pred = np.argmax(Y_pred, axis=1)
-#print(Y_pred)
-#print('Confusion Matrix')
-#con_mat = confusion_matrix(test_generator.classes, y_pred)
-#con_mat_norm = np.around(con_mat.astype('float') / con_mat.sum(axis=1)[:, np.newaxis], decimals=2)
-# 
-#con_mat_df = pd.DataFrame(con_mat_norm,
-#                     index = data_labels, 
-#                     columns = data_labels)
-#
-#figure = plt.figure(figsize=(8, 8))
-#sn.heatmap(con_mat_df, annot=True,cmap=plt.cm.Blues)
-#plt.tight_layout()
-#plt.ylabel('True label')
-#plt.xlabel('Predicted label')
-#plt.show()
+classifier.fit_generator(training_set, samples_per_epoch = samples_per_epoch, nb_epoch = nb_epoch, validation_data = test_set, nb_val_samples = nb_val_samples)
